@@ -55,8 +55,9 @@ let pAequorFactory = (specimenNum, dna) => {
   };
 };
 
-let specimenOne = pAequorFactory(1, mockUpStrand());
-let specimenTwo = pAequorFactory(2, mockUpStrand());
-specimenOne.mutate();
-specimenOne.compareDNA(specimenTwo);
-specimenOne.willLikelySurvive();
+let pAequorSpecimens = [];
+for (let i = 1; i <= 30; i++) {
+  pAequorSpecimens.push(pAequorFactory(i, mockUpStrand()));
+}
+
+console.log(pAequorSpecimens);
