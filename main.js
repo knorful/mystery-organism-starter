@@ -24,12 +24,39 @@ let pAequorFactory = (specimenNum, dna) => {
       while (randomBase === randomizeBase) {
         randomizeBase = returnRandBase();
       }
-      console.log(`before mutation at ${randomBaseIdx + 1}: `, this.dna);
       this.dna[randomBaseIdx] = randomizeBase;
-      console.log(`after mutation at ${randomBaseIdx + 1} : `, this.dna);
+    },
+    compareDNA(pAequorObj) {
+      let likeBases = 0;
+
+      for (let i = 0; i < this.dna.length; i++) {
+        if (this.dna[i] === pAequorObj.dna[i]) {
+          likeBases++;
+        }
+      }
+      console.log(
+        `specimen #${specimenNum} and specimen #${
+          pAequorObj.specimenNum
+        } have ${Math.round(
+          (likeBases / this.dna.length) * 100
+        )}% DNA in common`
+      );
+    },
+    willLikelySurvive() {
+      let numOfGoodBases = 0;
+      let willSurvive;
+      this.dna.forEach((base) =>
+        base === "C" || base === "G" ? numOfGoodBases++ : false
+      );
+      willSurvive = Math.round((numOfGoodBases / this.dna.length) * 100) > 60;
+      console.log("Will this specimen most likely survive? ", willSurvive);
+      return willSurvive;
     },
   };
 };
 
 let specimenOne = pAequorFactory(1, mockUpStrand());
+let specimenTwo = pAequorFactory(2, mockUpStrand());
 specimenOne.mutate();
+specimenOne.compareDNA(specimenTwo);
+specimenOne.willLikelySurvive();
